@@ -52,8 +52,26 @@ func main() {
 	}()
 
 	// add customers
+	i := 1
+	go func() {
+		for {
+			//get a random number with average arrival rate
+
+			randomMilliSecond := rand.Int() % (2 * arrivalRate)
+			select {
+			case <-shopClosing:
+				color.Red("Barber shop is closed for the day. No more clients will be accepted.")
+				return
+			case <-time.After(time.Duration(randomMilliSecond) * time.Millisecond):
+				client := "Client " + string(i)
+				i++
+				shop.addClient(client)
+			}
+		}
+	}()
 
 	// block until barber shop is closed
+	<-closed
 
-	time.Sleep(5 * time.Second)
+	//time.Sleep(5 * time.Second)
 }
