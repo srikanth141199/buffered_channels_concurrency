@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -40,6 +41,10 @@ func main() {
 
 	// add barbers
 	shop.addBarber("Barber 1")
+	shop.addBarber("Barber 2")
+	shop.addBarber("Barber 3")
+	shop.addBarber("Barber 4")
+	shop.addBarber("Barber 5")
 
 	// start a barber shop as a go routine
 	shopClosing := make(chan bool)
@@ -63,7 +68,7 @@ func main() {
 				color.Red("Barber shop is closed for the day. No more clients will be accepted.")
 				return
 			case <-time.After(time.Duration(randomMilliSecond) * time.Millisecond):
-				client := "Client " + string(i)
+				client := "Client " + fmt.Sprint(i)
 				i++
 				shop.addClient(client)
 			}
