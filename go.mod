@@ -1,3 +1,3 @@
-module buffered_channels
+module sleepingBarber
 
 go 1.26.3
