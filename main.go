@@ -39,13 +39,21 @@ func main() {
 	color.Green("Barber shop is open for business!")
 
 	// add barbers
-
-	// start a barber shop
+	shop.addBarber("Barber 1")
 
 	// start a barber shop as a go routine
+	shopClosing := make(chan bool)
+	closed := make(chan bool)
+	go func() {
+		<-time.After(timeOpen)
+		shopClosing <- true
+		shop.closeShopForDay()
+		closed <- true
+	}()
 
 	// add customers
 
 	// block until barber shop is closed
 
+	time.Sleep(5 * time.Second)
 }
